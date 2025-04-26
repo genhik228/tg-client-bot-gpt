@@ -16,6 +16,9 @@ from func.send_users_message import send_messages
 import math
 from asyncpg.exceptions import DataError
 
+from asyncpg.exceptions import CannotConnectNowError
+
+
 pool = None
 app = None
 
@@ -149,6 +152,24 @@ async def save_users(users_dict, conn):
 user_states = {}
 
 
+async def init_db():
+    max_retries = 5
+    retry_delay = 5  # seconds
+
+    for attempt in range(max_retries):
+        try:
+            print('DATABASE_URL', DATABASE_URL)
+            pool = await asyncpg.create_pool(DATABASE_URL)
+            async with pool.acquire() as conn:
+                await create_tables(conn)
+            return pool
+        except (CannotConnectNowError, ConnectionRefusedError) as e:
+            print(f"Попытка {attempt + 1}/{max_retries}: Ошибка подключения - {str(e)}")
+            await asyncio.sleep(retry_delay)
+
+    raise RuntimeError("Не удалось подключиться к PostgreSQL после 5 попыток")
+
+
 async def main():
     global pool, app
     pr.print_header("ЗАПУСК ПАРСЕРА TELEGRAM")
@@ -162,8 +183,8 @@ async def main():
     try:
         # pool = await asyncpg.create_pool(**POSTGRES_CONFIG)
         print(DATABASE_URL)
-        pool = await asyncpg.create_pool(DATABASE_URL)
-
+        # pool = await asyncpg.create_pool(DATABASE_URL)
+        await init_db()
         async with pool.acquire() as conn:
             await create_tables(conn)
 
