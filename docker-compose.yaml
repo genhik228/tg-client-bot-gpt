@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15.3
+    container_name: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      TZ: "Europe/Moscow"
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - internal_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  telegram-bot:
+    build: .
+    container_name: telegram-bot
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PYTHONUNBUFFERED: 1
+      # Telegram
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      ADMIN_ID: ${ADMIN_ID}
+      API_ID: ${API_ID}
+      API_HASH: ${API_HASH}
+      PHONE_NUMBER: ${PHONE_NUMBER}
+      LOGIN: ${LOGIN}
+
+      # Database
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+
+      # OpenAI
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+
+      # Proxy
+      HTTP_PROXY: ${HTTP_PROXY}
+      HTTPS_PROXY: ${HTTPS_PROXY}
+
+      # Time Settings
+      TIME_START: ${TIME_START}
+      TIME_END: ${TIME_END}
+
+      # Google Sheets
+      SPREADSHEET_ID: ${SPREADSHEET_ID}
+      GID: ${GID}
+
+      LOG_LEVEL: INFO
+
+    networks:
+      - internal_network
+    volumes:
+      - ./logs:/app/logs
+
+volumes:
+  postgres_data:
+
+networks:
+  internal_network:
+    internal: true

@@ -1,14 +1,24 @@
-__pycache__
+# Игнорировать файлы окружения
 .env
-.env.prod
 *.env
-sessions
-venv
-Photos
-Documents
+.idea
+# Игнорировать служебные папки
+.git/
+.idea/
+.ipynb_checkpoints/
+.venv/
+__pycache__/
 data
-nextcloud
-ftp-server
-start_service.sh
-stop_service.sh
-**/first_token
+sessions
+*.rar
+*.ipynb
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+.idea/
+*.iml
+misc.xml
+modules.xml
+workspace.xml
