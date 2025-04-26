@@ -173,7 +173,6 @@ async def init_db():
 async def main():
     global pool, app
     pr.print_header("ЗАПУСК ПАРСЕРА TELEGRAM")
-    print(DATABASE_URL)
     print('123')
     menu_text = (
         "**🏁 ПАНЕЛЬ УПРАВЛЕНИЯ**\n\n"
@@ -184,7 +183,6 @@ async def main():
     )
     try:
         # pool = await asyncpg.create_pool(**POSTGRES_CONFIG)
-        print(DATABASE_URL)
         # pool = await asyncpg.create_pool(DATABASE_URL)
         await init_db()
         async with pool.acquire() as conn:
