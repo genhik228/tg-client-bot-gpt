@@ -2,31 +2,27 @@
 set -e
 
 main() {
-  # --- Настройки ---
   COMPOSE_FILE="docker-compose.yaml"
   ENV_FILE=".env"
 
   log() { echo "[$(date '+%F %T')] $1"; }
 
-  # --- Проверка предварительных условий ---
-  if [ ! -f "$COMPOSE_FILE" ]; then
-    log "Ошибка: файл $COMPOSE_FILE не найден!"
+  # Проверка файлов
+  [[ ! -f "$COMPOSE_FILE" ]] && log "Ошибка: $COMPOSE_FILE не найден!" && exit 1
+  [[ ! -f "$ENV_FILE" ]] && log "Ошибка: $ENV_FILE не найден!" && exit 1
+
+  # Запуск
+  log "Запуск сервисов..."
+  if ! docker-compose --env-file "$ENV_FILE" -f "$COMPOSE_FILE" up -d --build; then
+    log "Ошибка при запуске контейнеров!"
+    docker-compose logs --tail=50
     exit 1
   fi
 
-  if [ ! -f "$ENV_FILE" ]; then
-    log "Ошибка: файл $ENV_FILE не найден!"
-    exit 1
-  fi
+  log "Проверка статуса:"
+  docker-compose ps
 
-  # --- Запуск сервисов ---
-  log "Запускаем сервисы..."
-  docker-compose --env-file "$ENV_FILE" -f "$COMPOSE_FILE" up -d --build
-
-  log "Проверяем статус контейнеров..."
-  docker-compose -f "$COMPOSE_FILE" ps
-
-  log "Сервисы успешно запущены"
+  log "Сервисы запущены"
 }
 
 main "$@"
