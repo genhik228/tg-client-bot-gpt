@@ -34,8 +34,6 @@ services:
       PHONE_NUMBER: ${PHONE_NUMBER}
       LOGIN: ${LOGIN}
 
-      # Database
-      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
 
       # OpenAI
       OPENAI_API_KEY: ${OPENAI_API_KEY}

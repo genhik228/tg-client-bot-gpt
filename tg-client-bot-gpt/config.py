@@ -20,7 +20,7 @@ POSTGRES_CONFIG = {
     "host": os.getenv("POSTGRES_HOST"),
     "port": os.getenv("POSTGRES_PORT")
 }
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = f"postgresql://{POSTGRES_CONFIG['user']}:{POSTGRES_CONFIG['password']}@postgres:5432/{POSTGRES_CONFIG['database']}"
 
 PROXY_SETTINGS = {
     "http": os.getenv("HTTP_PROXY"),
