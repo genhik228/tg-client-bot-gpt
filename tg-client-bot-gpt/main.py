@@ -173,7 +173,7 @@ async def init_db():
 async def main():
     global pool, app
     pr.print_header("ЗАПУСК ПАРСЕРА TELEGRAM")
-    print('123')
+    pr.print_header("ЗАПУСК ПАРСЕРА TELEGRAM")
     menu_text = (
         "**🏁 ПАНЕЛЬ УПРАВЛЕНИЯ**\n\n"
         "1. 🕷️ Создать сообщения пользователям\n"
