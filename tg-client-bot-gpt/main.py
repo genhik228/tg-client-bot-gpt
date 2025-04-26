@@ -7,7 +7,7 @@ from pyrogram import Client, filters, idle
 from pyrogram.types import Message
 from pyrogram.errors import FloodWait
 import traceback
-from config import POSTGRES_CONFIG, API_ID, API_HASH, ADMIN_ID
+from config import POSTGRES_CONFIG, API_ID, API_HASH, ADMIN_ID, DATABASE_URL
 from db import create_tables, save_message_users, save_media
 from func.get_answer_for_client import update_answer
 from func.get_data_in_gtable import get_data_in_gtable
@@ -160,7 +160,10 @@ async def main():
         "Выберите цифру (1-6):"
     )
     try:
-        pool = await asyncpg.create_pool(**POSTGRES_CONFIG)
+        # pool = await asyncpg.create_pool(**POSTGRES_CONFIG)
+        print(DATABASE_URL)
+        pool = await asyncpg.create_pool(DATABASE_URL)
+
         async with pool.acquire() as conn:
             await create_tables(conn)
 

@@ -13,7 +13,7 @@ main() {
 
   # Запуск
   log "Запуск сервисов..."
-  if ! docker-compose --env-file "$ENV_FILE" -f "$COMPOSE_FILE" up -d --build; then
+  if ! docker-compose -f  up -d --build; then
     log "Ошибка при запуске контейнеров!"
     docker-compose logs --tail=50
     exit 1
