@@ -181,6 +181,8 @@ async def main():
         "3. 📊  Обновление сообщений от клиентов\n"
         "Выберите цифру (1-6):"
     )
+
+    # das
     try:
         # pool = await asyncpg.create_pool(**POSTGRES_CONFIG)
         # pool = await asyncpg.create_pool(DATABASE_URL)
