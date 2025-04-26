@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:15.3
@@ -29,7 +27,6 @@ services:
     environment:
       PYTHONUNBUFFERED: 1
       # Telegram
-      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
       ADMIN_ID: ${ADMIN_ID}
       API_ID: ${API_ID}
       API_HASH: ${API_HASH}
