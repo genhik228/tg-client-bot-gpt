@@ -2,7 +2,7 @@ from datetime import datetime
 import os
 import asyncpg
 import asyncio
-import pandas as pd
+import logging
 from pyrogram import Client, filters, idle
 from pyrogram.types import Message
 from pyrogram.errors import FloodWait
@@ -19,6 +19,15 @@ from asyncpg.exceptions import DataError
 pool = None
 app = None
 
+logging.basicConfig(
+    level=os.getenv('LOG_LEVEL', 'INFO'),
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('logs/bot.log'),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger(__name__)
 
 
 # async def process_missing_ids(df: pd.DataFrame, delay: int = 1) -> pd.DataFrame:
