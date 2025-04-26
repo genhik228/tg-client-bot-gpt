@@ -1,8 +1,4 @@
 __pycache__
-tg-bot/__pycache__
-tg-bot/Photos
-tg-bot/Documents
-tg-bot/config_dev.py
 .env
 .env.prod
 *.env
