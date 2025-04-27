@@ -1,10 +1,12 @@
-# Многоэтапная сборка для кеширования
+# Многоэтапная сборка
 FROM python:3.10-slim as builder
 
 WORKDIR /app
 
-# Установка зависимостей с кешированием
-COPY requirements.txt .
+# Копируем зависимости из папки проекта
+COPY tg-client-bot-gpt/requirements.txt .
+
+# Устанавливаем с кешированием
 RUN pip install --user --cache-dir /pip-cache -r requirements.txt
 
 # Финальный образ
@@ -18,7 +20,7 @@ COPY --from=builder /pip-cache /pip-cache
 # Настраиваем PATH
 ENV PATH=/root/.local/bin:$PATH
 
-# Копируем исходный код
-COPY . .
+# Копируем исходный код из папки проекта
+COPY tg-client-bot-gpt/ .
 
 ENTRYPOINT ["python", "main.py"]
