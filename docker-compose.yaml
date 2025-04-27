@@ -45,8 +45,7 @@ services:
       SPREADSHEET_ID: ${SPREADSHEET_ID}
       GID: ${GID}
       LOG_LEVEL: INFO
-    networks:
-      - internal_network
+    network_mode: host
     volumes:
       - ./tg-client-bot-gpt:/app  # Монтируем папку проекта
       - pip-cache:/pip-cache
