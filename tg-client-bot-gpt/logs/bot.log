@@ -1,0 +1,15 @@
+2025-04-27 12:50:49,832 - pyrogram.connection.connection - INFO - Connecting...
+2025-04-27 12:50:49,878 - pyrogram.connection.connection - INFO - Connected! Production DC2 - IPv4
+2025-04-27 12:50:49,878 - pyrogram.session.session - INFO - NetworkTask started
+2025-04-27 12:50:50,208 - pyrogram.session.session - INFO - Session initialized: Layer 158
+2025-04-27 12:50:50,208 - pyrogram.session.session - INFO - Device: CPython 3.11.5 - Pyrogram 2.0.106
+2025-04-27 12:50:50,208 - pyrogram.session.session - INFO - System: Windows 10 (en)
+2025-04-27 12:50:50,208 - pyrogram.session.session - INFO - Session started
+2025-04-27 12:50:50,214 - pyrogram.session.session - INFO - PingTask started
+2025-04-27 12:50:50,583 - pyrogram.dispatcher - INFO - Started 12 HandlerTasks
+2025-04-27 12:51:32,673 - root - INFO - Stop signal received (SIGINT). Exiting...
+2025-04-27 12:51:32,707 - pyrogram.dispatcher - INFO - Stopped 12 HandlerTasks
+2025-04-27 12:51:32,707 - pyrogram.session.session - INFO - PingTask stopped
+2025-04-27 12:51:32,708 - pyrogram.connection.connection - INFO - Disconnected
+2025-04-27 12:51:32,708 - pyrogram.session.session - INFO - NetworkTask stopped
+2025-04-27 12:51:32,708 - pyrogram.session.session - INFO - Session stopped
