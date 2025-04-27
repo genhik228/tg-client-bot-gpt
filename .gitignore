@@ -26,3 +26,5 @@ misc.xml
 modules.xml
 workspace.xml
 .idea/*.*
+**/__pycache__
+*.pyc

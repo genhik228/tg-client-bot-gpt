@@ -1,13 +1,23 @@
-FROM python:3.10-bullseye
+FROM python:3.10-slim as builder
 
-WORKDIR /src
+WORKDIR /app
 
-COPY ./tg-client-bot-gpt .
-
+# Установка зависимостей с кешированием
+COPY requirements.txt .
 RUN pip install --user --cache-dir /pip-cache -r requirements.txt
+
+# Финальный образ
+FROM python:3.10-slim
+WORKDIR /app
+
+# Копируем зависимости и кеш из builder-этапа
 COPY --from=builder /root/.local /root/.local
 COPY --from=builder /pip-cache /pip-cache
 
+# Добавляем .local/bin в PATH
 ENV PATH=/root/.local/bin:$PATH
 
-ENTRYPOINT [ "python3.10", "main.py" ]
+# Копируем исходный код
+COPY . .
+
+ENTRYPOINT ["python", "main.py"]

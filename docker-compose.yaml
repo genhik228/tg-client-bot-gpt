@@ -55,10 +55,15 @@ services:
     networks:
       - internal_network
     volumes:
-      - ./logs:/app/logs
+      - ./logs:/app/logs  # Соответствует WORKDIR /app
+      - ./:/app           # Маппинг в рабочую директорию контейнера
+      - pip-cache:/pip-cache
+      - pip-cache-root:/root/.cache/pip  # Исправленное имя volume
 
 volumes:
   postgres_data:
+  pip-cache:     # Для кеша pip
+  pip-cache-root: # Для глобального кеша pip
 
 networks:
   internal_network:
