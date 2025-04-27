@@ -189,7 +189,7 @@ async def main():
             await create_tables(conn)
 
         app = Client(
-            name="session",
+            name="alex",
             api_id=API_ID,
             api_hash=API_HASH,
             workdir="sessions"
