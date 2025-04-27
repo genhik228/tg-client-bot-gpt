@@ -7,7 +7,7 @@ from pyrogram import Client, filters, idle
 from pyrogram.types import Message
 from pyrogram.errors import FloodWait
 import traceback
-from config import POSTGRES_CONFIG, API_ID, API_HASH, ADMIN_ID, DATABASE_URL
+from config import POSTGRES_CONFIG, API_ID, API_HASH, ADMIN_ID, DATABASE_URL, PHONE_NUMBER
 from db import create_tables, save_message_users, save_media
 from func.get_answer_for_client import update_answer
 from func.get_data_in_gtable import get_data_in_gtable
@@ -192,7 +192,8 @@ async def main():
             name="session",
             api_id=API_ID,
             api_hash=API_HASH,
-            workdir="sessions"
+            workdir="sessions",
+            phone_number=PHONE_NUMBER
         )
         @app.on_message(filters.private)
         async def log_all_messages(client: Client, message: Message):
