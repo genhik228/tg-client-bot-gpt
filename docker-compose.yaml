@@ -9,8 +9,9 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       TZ: "Europe/Moscow"
     volumes:
-      - ./data/postgres:/var/lib/postgresql/data
       - /etc/localtime:/etc/localtime:ro
+      - postgres_data:/var/lib/postgresql/data
+      - ./data/postgres:/var/lib/postgresql/data
     networks:
       - internal_network
     healthcheck:
@@ -45,6 +46,14 @@ services:
       LOG_LEVEL: INFO
     networks:
       - internal_network
+    volumes:
+      - ./:/app
+      - pip-cache:/pip-cache
+      - ~/.cache/pip:/root/.cache/pip
+
+volumes:
+  postgres_data:
+  pip-cache:
 
 networks:
   internal_network:
