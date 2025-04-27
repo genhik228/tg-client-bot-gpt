@@ -23,8 +23,7 @@ services:
     build: .
     container_name: telegram-bot
     depends_on:
-      postgres:
-        condition: service_healthy
+      - postgres  # Формат массива вместо словаря
     environment:
       PYTHONUNBUFFERED: 1
       # Telegram
