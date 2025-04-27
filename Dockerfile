@@ -21,6 +21,6 @@ COPY --from=builder /pip-cache /pip-cache
 ENV PATH=/root/.local/bin:$PATH
 
 # Копируем исходный код из папки проекта
-COPY tg-client-bot-gpt/ .
+COPY ./tg-client-bot-gpt .
 
 ENTRYPOINT ["python", "main.py"]
