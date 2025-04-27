@@ -45,7 +45,9 @@ services:
       SPREADSHEET_ID: ${SPREADSHEET_ID}
       GID: ${GID}
       LOG_LEVEL: INFO
-    network_mode: host
+    networks:
+      - internal_network  # Для доступа к Postgres
+      - default           # Для доступа в интернет
     volumes:
       - ./tg-client-bot-gpt:/app  # Монтируем папку проекта
       - pip-cache:/pip-cache
@@ -57,4 +59,6 @@ volumes:
 
 networks:
   internal_network:
-    internal: true
+    internal: true  # Сеть только для внутреннего взаимодействия (без доступа в интернет)
+  default:          # Стандартная сеть Docker (имеет доступ в интернет)
+    external: false  # Создается автоматически, если не указано иное
