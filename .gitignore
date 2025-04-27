@@ -28,3 +28,11 @@ workspace.xml
 .idea/*.*
 **/__pycache__
 *.pyc
+.git
+.venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.env
+logs/
