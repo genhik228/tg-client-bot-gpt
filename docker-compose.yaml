@@ -56,7 +56,7 @@ services:
       - internal_network
     volumes:
       - ./logs:/app/logs
-      - ./your_project_folder:/app  # Маппинг папки проекта
+      - ./:/app  # Маппинг папки проекта
       - pip-cache:/pip-cache
       - pip-cache-root:/root/.cache/pip
 

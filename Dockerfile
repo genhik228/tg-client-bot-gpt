@@ -4,7 +4,7 @@ FROM python:3.10-slim as builder
 WORKDIR /app
 
 # 1. Копируем зависимости из папки проекта
-COPY tg-client-bot-gpt/requirements.txt .
+COPY requirements.txt .
 
 # 2. Устанавливаем с кешированием
 RUN pip install --user --cache-dir /pip-cache -r requirements.txt
@@ -19,6 +19,6 @@ COPY --from=builder /pip-cache /pip-cache
 
 
 # Копируем исходный код
-COPY tg-client-bot-gpt/ .
+COPY . .
 
 ENTRYPOINT ["python", "main.py"]
