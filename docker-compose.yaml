@@ -35,35 +35,16 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
-      # OpenAI
       OPENAI_API_KEY: ${OPENAI_API_KEY}
-
-      # Proxy
       HTTP_PROXY: ${HTTP_PROXY}
       HTTPS_PROXY: ${HTTPS_PROXY}
-
-      # Time Settings
       TIME_START: ${TIME_START}
       TIME_END: ${TIME_END}
-
-      # Google Sheets
       SPREADSHEET_ID: ${SPREADSHEET_ID}
       GID: ${GID}
-
       LOG_LEVEL: INFO
-
     networks:
       - internal_network
-    volumes:
-      - ./logs:/app/logs
-      - ./:/app  # Маппинг папки проекта
-      - pip-cache:/pip-cache
-      - pip-cache-root:/root/.cache/pip
-
-volumes:
-  postgres_data:
-  pip-cache:     # Для кеша pip
-  pip-cache-root: # Для глобального кеша pip
 
 networks:
   internal_network:

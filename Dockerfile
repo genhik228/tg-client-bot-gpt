@@ -1,24 +1,5 @@
-# Многоэтапная сборка
-FROM python:3.10-slim as builder
-
-WORKDIR /app
-
-# 1. Копируем зависимости из папки проекта
-COPY requirements.txt .
-
-# 2. Устанавливаем с кешированием
-RUN pip install --user --cache-dir /pip-cache -r requirements.txt
-
-# Финальный образ
-FROM python:3.10-slim
-WORKDIR /app
-ENV PATH="/root/.local/bin:${PATH}"
-# Копируем зависимости и кеш
-COPY --from=builder /root/.local /root/.local
-COPY --from=builder /pip-cache /pip-cache
-
-
-# Копируем исходный код
-COPY . .
-
-ENTRYPOINT ["python", "main.py"]
+FROM python:3.10-bullseye
+WORKDIR /src
+COPY ./tg-bot .
+RUN pip install -r requirements.txt
+ENTRYPOINT [ "python3.10", "bot.py" ]
