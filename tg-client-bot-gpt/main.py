@@ -189,10 +189,10 @@ async def main():
             await create_tables(conn)
 
         app = Client(
-            name="session",
+            # name="session",
             api_id=API_ID,
-            api_hash=API_HASH,
-            workdir="sessions"
+            api_hash=API_HASH
+            # workdir="sessions"
         )
         @app.on_message(filters.private)
         async def log_all_messages(client: Client, message: Message):
