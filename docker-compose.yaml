@@ -51,7 +51,7 @@ services:
       - ./tg-client-bot-gpt:/app  # Монтируем папку проекта
       - pip-cache:/pip-cache
       - ~/.cache/pip:/root/.cache/pip
-
+      - ./sessions:/app/sessions
 volumes:
   postgres_data:
   pip-cache:
