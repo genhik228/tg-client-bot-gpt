@@ -32,7 +32,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-
 # async def process_missing_ids(df: pd.DataFrame, delay: int = 1) -> pd.DataFrame:
 #     missing_ids = df[df['tg_id'].isna()]
 #     for idx, row in missing_ids.iterrows():
@@ -152,23 +151,6 @@ async def save_users(users_dict, conn):
 user_states = {}
 
 
-async def init_db():
-    max_retries = 5
-    retry_delay = 5  # seconds
-
-    for attempt in range(max_retries):
-        try:
-            print('DATABASE_URL', DATABASE_URL)
-            pool = await asyncpg.create_pool(DATABASE_URL)
-            async with pool.acquire() as conn:
-                await create_tables(conn)
-            return pool
-        except (CannotConnectNowError, ConnectionRefusedError) as e:
-            print(f"Попытка {attempt + 1}/{max_retries}: Ошибка подключения - {str(e)}")
-            await asyncio.sleep(retry_delay)
-
-    raise RuntimeError("Не удалось подключиться к PostgreSQL после 5 попыток")
-
 
 async def main():
     global pool, app
@@ -184,9 +166,7 @@ async def main():
 
     # das
     try:
-        # pool = await asyncpg.create_pool(**POSTGRES_CONFIG)
-        # pool = await asyncpg.create_pool(DATABASE_URL)
-        await init_db()
+        pool = await asyncpg.create_pool(**POSTGRES_CONFIG)
         async with pool.acquire() as conn:
             await create_tables(conn)
 
