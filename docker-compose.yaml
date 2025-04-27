@@ -3,6 +3,7 @@ services:
   postgres:
     image: postgres:15.3
     container_name: postgres
+    env_file: .env
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -24,8 +25,7 @@ services:
     container_name: telegram-bot
     depends_on:
       - postgres  # Формат массива вместо словаря
-    env_file:
-      - .env  # Добавьте эту строку
+    env_file: .env
     environment:
       PYTHONUNBUFFERED: 1
       # Telegram
