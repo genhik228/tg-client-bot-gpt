@@ -12,6 +12,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - postgres_data:/var/lib/postgresql/data
+      - ./postgres_data:/var/lib/postgresql/data
     networks:
       - internal_network
     healthcheck:
@@ -53,6 +54,7 @@ services:
       - pip-cache:/pip-cache
       - ~/.cache/pip:/root/.cache/pip
       - ./sessions:/app/sessions
+      - ./data_user:/app/data
 volumes:
   postgres_data:
   pip-cache:

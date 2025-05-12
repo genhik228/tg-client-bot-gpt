@@ -12,9 +12,7 @@ RUN pip install --user --cache-dir /pip-cache -r requirements.txt
 # Финальный образ
 FROM python:3.10-slim
 WORKDIR /app
-RUN mkdir -p /app/sessions && chmod 777 /app/sessions
 
-# Копируем зависимости и кеш
 COPY --from=builder /root/.local /root/.local
 COPY --from=builder /pip-cache /pip-cache
 
