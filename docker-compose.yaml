@@ -54,6 +54,36 @@ services:
       - ~/.cache/pip:/root/.cache/pip
       - ./sessions:/app/sessions
       - ./data_user:/app/data
+  openvpn:
+    image: kylemanna/openvpn:latest
+    container_name: openvpn
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - internal_network
+      - default
+    ports:
+      - "443:443/tcp"  # Изменили порт и протокол
+    volumes:
+      - ./openvpn-data:/etc/openvpn
+    env_file: .env
+    environment:
+      OVPN_PROTOCOL: tcp  # Переключаемся на TCP
+      OVPN_SERVER_URL: tcp://${OVPN_DOMAIN_OR_IP}:443
+      OVPN_CN: ${OVPN_DOMAIN_OR_IP}
+      OVPN_NAT: "true"
+    command: >
+      bash -c '
+      if [ ! -f /etc/openvpn/init-complete ]; then
+        ovpn_genconfig -u $$OVPN_SERVER_URL -N -d -p "redirect-gateway def1" && 
+        echo "yes" | ovpn_initpki nopass && 
+        touch /etc/openvpn/init-complete
+      fi && 
+      ovpn_run
+      '
+    depends_on:
+      - postgres
+
 volumes:
   postgres_data:
   pip-cache:
