@@ -195,6 +195,7 @@ async def main():
             workdir="sessions",
             phone_number=PHONE_NUMBER
         )
+
         @app.on_message(filters.private)
         async def log_all_messages(client: Client, message: Message):
             current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
